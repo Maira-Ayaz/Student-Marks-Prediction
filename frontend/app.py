@@ -1,13 +1,9 @@
 
 import streamlit as st
 import requests
-import os
 
-# Backend URL
-BACKEND_URL = os.getenv(
-    "BACKEND_URL",
-    "http://127.0.0.1:8000"
-)
+# Read Backend URL from secrets.toml
+BACKEND_URL = st.secrets["BACKEND_URL"]
 
 # Page configuration
 st.set_page_config(
@@ -49,7 +45,7 @@ if submitted:
         response = requests.post(
             f"{BACKEND_URL}/predict",
             json=data,
-            timeout=15
+            timeout=120
         )
 
         if response.status_code == 200:
